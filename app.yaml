@@ -1,0 +1,17 @@
+application: ncku-wrdu
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /static/(.*)
+  static_files: static/\1
+  upload: static/(.*)
+  
+- url: /.*
+  script: metasearch.app
+
+libraries:
+- name: jinja2
+  version: latest

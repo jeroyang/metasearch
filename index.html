@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>{% block title %}Projects for Web Resource Discovery and Utility Course{% endblock %}</title>
+
+		<!--Baseline CSS files-->
+		<link type="text/css" rel="stylesheet" media="screen" href="{{ STATIC_URL }}css/uncompressed/baseline.reset.css">
+		<link type="text/css" rel="stylesheet" media="screen" href="{{ STATIC_URL }}css/uncompressed/baseline.base.css">
+		<link type="text/css" rel="stylesheet" media="screen" href="{{ STATIC_URL }}css/uncompressed/baseline.type.css">
+		<link type="text/css" rel="stylesheet" media="screen" href="{{ STATIC_URL }}css/uncompressed/baseline.table.css">
+		<link type="text/css" rel="stylesheet" media="screen" href="{{ STATIC_URL }}css/uncompressed/baseline.form.css">
+		<link type="text/css" rel="stylesheet" media="screen" href="{{ STATIC_URL }}css/uncompressed/baseline.grid.css">
+
+		<!--<link type="text/css" rel="stylesheet" media="screen" href="css/compressed/baseline.compress.css">-->
+		<script src="{{ STATIC_URL }}scripts/jquery-1.7.1.min.js"></script>
+ 		<script type="text/javascript" src="{{ STATIC_URL }}scripts/html5.js"></script>
+ 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+          google.load("visualization", "1", {packages:["corechart"]});
+          google.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Search Engine', 'Results'],
+              ['Google',  {{ google_count }}],
+              ['Yahoo!',  {{ yahoo_count }}],
+              ['Bing',  {{ bing_count }}],
+              ['Baidu',  {{ baidu_count }}]
+            ]);
+
+            var options = {
+              title: 'Result Count',
+              vAxis: {logScale: true, format: '0.###E0'},
+              legend: {position: 'none'}
+              
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+          }
+        </script>
+		<style>
+			#page					{ margin: 0 auto 36px auto; }
+			#branding a				{ border: none; }
+            p {margin-bottom: 8px;}
+		</style>
+	</head>
+
+	<body class="page-grid">
+		<div id="page">
+            <header id="branding">
+            	<h1>Project: MetaSearch Engine: Google, Yahoo, Bing, Baidu</h1>
+            	<hr />
+            </header>
+            <section class="width4 stroke">
+            	<div class="full">
+            	    <div class="column width2 first" style="height: 200px">
+            		    <a href="/"><img src="{{ STATIC_URL }}images/logo.png"></a>
+            	        <form>
+                		    <label class="unitx2 first"><input type="text" name="q" value="{{ query }}" class="text"></label>
+                			<label class="unitx1"><input type="submit" value="Search" class="unitx1"></label>
+                		</form>
+                	</div>
+        			<div class="column width2" id="chart_div" style="height: 200px"></div>
+                    <hr />
+         		    <div id="results">
+        			    {% for result in results %}
+        			    <div class="result">
+                            <h4><a href="{{ result[0] }}">{{ result[1] }}</a><img src="{{ result[4] }}" alt="{{ result[3] }}" width="20"></h4>
+                            <p>{{ result[2] }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+            	</div>
+            </section>
+			<footer class="full">
+				{% block footer %}
+				<hr />
+				<p><small>Projects for Web Resource Discovery and Utility Course. 資訊工程-P78011167-楊家融-HW2. 2012</small></p>
+				{% endblock footer %}
+			</footer>
+            <script>
+			{% block jquery %}
+			{% endblock jquery %}
+            </script>
+		</div>	
+	</body>
+</html>
