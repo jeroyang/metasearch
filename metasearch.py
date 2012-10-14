@@ -18,8 +18,7 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/html'
         if self.request.get('q') != '':
-            query = cgi.escape(self.request.get('q'))
-
+            query = cgi.escape(self.request.get('q')).split(' ')
             results = []
             result_count = dict()
             for Search in [GoogleSearch, YahooSearch, BingSearch, BaiduSearch]:
@@ -27,8 +26,8 @@ class MainPage(webapp2.RequestHandler):
                 try:
                     results.extend(searcher.search(query))
                     result_count[Search.__name__] = searcher.result_count
-                except HTTPException:
-                    pass
+                except:
+                    result_count[Search.__name__] = 0
             logo = {'Google': 'http://www.google.com/favicon.ico',
                     'Yahoo': 'http://www.yahoo.com/favicon.ico', 
                     'Bing': 'http://www.bing.com/favicon.ico',
