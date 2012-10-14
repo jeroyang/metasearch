@@ -34,7 +34,7 @@ class MainPage(webapp2.RequestHandler):
                     'Baidu': 'http://www.baidu.com/favicon.ico' }
             results = [(l, t, d, e, logo[e]) for (l, t, d, e) in results]
             template_values = {'results': results,
-                               'query': query,
+                               'query': self.request.get('q'),
                                'STATIC_URL': '/static/',
                                'google_count': result_count['GoogleSearch'], 
                                'yahoo_count': result_count['YahooSearch'], 
