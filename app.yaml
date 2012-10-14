@@ -8,7 +8,9 @@ handlers:
 - url: /static/(.*)
   static_files: static/\1
   upload: static/(.*)
-  
+- url: /favicon\.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon\.ico
 - url: /.*
   script: metasearch.app
 
