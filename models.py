@@ -19,7 +19,7 @@ class BaseSearch(object):
         if result_count != 'None':
             self.result_count = int(re.sub(r',', '', result_count))
         for result in [x for x in html('p') if x.a]:
-            link = result.a['href'][7:]
+            link = unquote(re.sub(r'.{7}(.*?)&.*', r'\1', result.a['href']))
             title = re.sub(r'<.*?>', '', str(result.a)) or 'Link'
             desc = re.sub(r'<.*?>', '', str(result.font).split('<br />')[0])
             if desc is not None and re.match(r'http', link):
