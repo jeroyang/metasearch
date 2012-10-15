@@ -9,4 +9,4 @@ This project based on Google App Engine, using the following library and materia
 2. jinja2: Template engine introduced by Google
 3. Baseline: A HTML/CSS template
 4. BeautifulSoup: A pure python HTMLparser to handle web contents
-
+5. Google Chart Tools: javascript api for drawing the bar chart
