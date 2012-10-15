@@ -18,7 +18,7 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/html'
         if self.request.get('q') != '':
-            query = cgi.escape(self.request.get('q')).split(' ')
+            query = self.request.get('q').split(' ')
             results = []
             result_count = dict()
             for Search in [GoogleSearch, YahooSearch, BingSearch, BaiduSearch]:
